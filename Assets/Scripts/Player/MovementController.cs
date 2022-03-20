@@ -6,6 +6,7 @@ public class MovementController : MonoBehaviour
     public float JumpForce;
     public bool OnTheGround;
     private bool HittedGround;
+    private bool isGameRunning;
 
     public GameObject Particle;
 
@@ -13,18 +14,26 @@ public class MovementController : MonoBehaviour
     public LayerMask LayerToTest;
     
     Rigidbody2D rgBody;
+    GameController Game;
 
     // Start is called before the first frame update
     void Start()
     {
         rgBody = GetComponent<Rigidbody2D> ();
+        Game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController> ();
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        Movement();
-        JumpRotate();
+    {   
+        if(isGameRunning){
+            Movement();
+            JumpRotate();
+        }
+    }
+
+    void Update(){
+        isGameRunning = Game.isGameRunning;
     }
 
     void Movement(){

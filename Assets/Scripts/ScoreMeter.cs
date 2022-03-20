@@ -5,14 +5,20 @@ public class ScoreMeter : MonoBehaviour
 {
     public float Score;
     public float Record;
-    public bool isGameRunning;
+    private bool isGameRunning;
 
     public Text ScoreText;
+    GameController Game;
+
+    void Start(){
+        Game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController> ();
+    }
 
     // Update is called once per frame
     void Update()
     {
         ScoreText.text = Score.ToString();
+        isGameRunning = Game.isGameRunning;
 
         if(isGameRunning){
             StartScore();
