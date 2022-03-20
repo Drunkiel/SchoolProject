@@ -5,6 +5,9 @@ public class MovementController : MonoBehaviour
     public float Speed;
     public float JumpForce;
     public bool OnTheGround;
+    private bool HittedGround;
+
+    public GameObject Particle;
 
     public Transform GroundTester;
     public LayerMask LayerToTest;
@@ -24,10 +27,6 @@ public class MovementController : MonoBehaviour
         JumpRotate();
     }
 
-    void Update(){
-        
-    }
-
     void Movement(){
         //Movement
         float Horizontal = Input.GetAxis("Horizontal");
@@ -45,8 +44,14 @@ public class MovementController : MonoBehaviour
     void JumpRotate(){
         if(!OnTheGround){
             transform.Rotate(new Vector3(0, 0, Time.deltaTime * -Speed)); 
+            HittedGround = true;
         }   else{
             transform.rotation = Quaternion.identity;
+
+            if(HittedGround){
+                Instantiate(Particle, transform.position, Quaternion.identity);
+                HittedGround = false;
+            } 
         }
     }
 }
