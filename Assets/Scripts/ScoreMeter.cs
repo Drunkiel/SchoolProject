@@ -21,12 +21,12 @@ public class ScoreMeter : MonoBehaviour
         }
     }
 
-    void StartScore(){
+    public void StartScore(){
         Score += Time.deltaTime * 2;
         Score = Mathf.Round(Score * 100) / 100;
     }
 
-    void StopScore(){
+    public void StopScore(){
         if(Record < Score){
             Record = Score;
         }
