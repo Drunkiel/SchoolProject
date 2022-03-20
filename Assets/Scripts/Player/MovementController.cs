@@ -3,7 +3,7 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     public float Speed;
-    public float JumpHeight;
+    public float JumpForce;
     public bool OnTheGround;
 
     public Transform GroundTester;
@@ -21,19 +21,32 @@ public class MovementController : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
+        JumpRotate();
+    }
+
+    void Update(){
+        
     }
 
     void Movement(){
+        //Movement
         float Horizontal = Input.GetAxis("Horizontal");
 
-        //Movement
         rgBody.velocity = new Vector3(Horizontal * Time.deltaTime * Speed, 0, 0);
 
         //Jump
         OnTheGround = Physics2D.OverlapCircle(GroundTester.position, 0.6f, LayerToTest);
 
         if(Input.GetKey(KeyCode.Space) && OnTheGround){
-            rgBody.AddForce(new Vector2(0, JumpHeight));
+            rgBody.velocity = Vector2.up * JumpForce;
+        }
+    }
+
+    void JumpRotate(){
+        if(!OnTheGround){
+            transform.Rotate(new Vector3(0, 0, Time.deltaTime * -Speed)); 
+        }   else{
+            transform.rotation = Quaternion.identity;
         }
     }
 }
