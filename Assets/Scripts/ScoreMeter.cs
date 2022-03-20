@@ -28,9 +28,8 @@ public class ScoreMeter : MonoBehaviour
     }
 
     void StartScore(){
-        Score += Time.deltaTime;
+        Score += Time.deltaTime * 2;
         Score = Mathf.Round(Score * 100) / 100;
-        print(Score);
     }
 
     void StopScore(){
